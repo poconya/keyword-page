@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>キーワード回答</title>
+
+<style>
+body{
+    font-family: "Yu Gothic","Hiragino Sans","Meiryo",sans-serif;
+    background:#f7f5f0;
+    color:#333;
+    text-align:center;
+    margin:0;
+    padding:60px 20px;
+}
+
+.box{
+    max-width:600px;
+    margin:auto;
+    background:white;
+    padding:40px;
+    border:1px solid #d8d2c6;
+    border-radius:10px;
+    box-shadow:0 3px 10px rgba(0,0,0,0.08);
+}
+
+h1{
+    margin-bottom:30px;
+    color:#5a4b3d;
+}
+
+p{
+    line-height:1.8;
+}
+
+input{
+    width:280px;
+    padding:10px;
+    font-size:18px;
+    text-align:center;
+    margin-top:20px;
+}
+
+button{
+    margin-top:20px;
+    padding:10px 30px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.hint{
+    margin-top:35px;
+    color:#666;
+    font-size:15px;
+}
+
+#result{
+    margin-top:30px;
+    font-size:18px;
+    line-height:1.8;
+}
+</style>
+
+</head>
+<body>
+
+<div class="box">
+
+<h1>🗝 キーワード回答 🗝</h1>
+
+<p>
+主様、キーワードはすべてお集まりでしょうか。<br><br>
+「キーワードマップ」で見つけたキーワードを入力してください。
+</p>
+
+<input type="text" id="answer" placeholder="キーワード">
+
+<br>
+
+<button onclick="check()">回答する</button>
+
+<div class="hint">
+ヒント：図形の順番が鍵です。<br><br>
+● ★ △ ○ ▼ □ ？
+</div>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+function check() {
+
+    // 前後・途中のスペースを削除
+    const ans = document.getElementById("answer").value
+        .trim()
+        .replace(/\s/g, "");
+
+    const correctAnswers = [
+        "アトランティスⅡ号",
+        "アトランティスII号",
+        "アトランティス2号"
+    ];
+
+    if (correctAnswers.includes(ans)) {
+
+        document.getElementById("result").innerHTML =
+            '🎉 <strong>お見事です、主様。</strong><br><br>' +
+            'こちらから記念品をダウンロードできます。<br><br>' +
+            '<a href="present.png" download>📥 記念品をダウンロード</a>';
+
+    } else {
+
+        document.getElementById("result").innerHTML =
+            'キーワードが違うようです。<br>もう一度ご確認ください。';
+
+    }
+
+}
+</script>
+
+</body>
+</html>
