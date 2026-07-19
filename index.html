@@ -174,7 +174,7 @@ button:active{
 
 <p>
 主様、キーワードはすべてお集まりでしょうか。<br><br>
-「キーワードマップ」で見つけたキーワードを入力してください。
+見つけたキーワードを入力してください。
 </p>
 
 <input
@@ -223,7 +223,7 @@ function check(){
         '<p style="color:#6d5843;font-size:18px;">🗝 解錠中...</p>' +
         '</div>';
 
-        // 0.8秒後に記念品表示
+        // 1秒後に記念品表示
         setTimeout(function(){
 
             result.innerHTML =
@@ -233,6 +233,7 @@ function check(){
             '<p style="font-size:24px;color:#6d5843;margin-bottom:10px;"><strong>お見事です、主様。</strong></p>' +
 
             '<p>' +
+            '正解です！<br>' +
             '謎を解き明かした主様へ、<br>' +
             'ささやかな記念品をご用意いたしました。<br>' +
             'どうぞお受け取りください。' +
@@ -243,7 +244,7 @@ function check(){
             '<br>' +
 
             '<a class="download" href="present.png" download>' +
-            '📥 記念品をダウンロード' +
+            '記念品をダウンロード' +
             '</a>' +
 
             '</div>';
