@@ -80,8 +80,7 @@ button{
 <button onclick="check()">回答する</button>
 
 <div class="hint">
-ヒント：図形の順番が鍵です。<br><br>
-● ★ △ ○ ▼ □ ？
+ヒント：●★△〇▼□？■<br>
 </div>
 
 <div id="result"></div>
@@ -100,6 +99,7 @@ function check() {
         "アトランティスⅡ号",
         "アトランティスII号",
         "アトランティス2号"
+        "アトランティス２号"
     ];
 
     if (correctAnswers.includes(ans)) {
@@ -116,7 +116,7 @@ function check() {
     } else {
 
         document.getElementById("result").innerHTML =
-            'キーワードが違うようです。<br>もう一度ご確認ください。';
+            'キーワードが違うようです。<br>もう一度、確認してみましょう。';
 
     }
 
