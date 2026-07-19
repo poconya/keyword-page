@@ -5,95 +5,205 @@
 <title>キーワード回答</title>
 
 <style>
+
 body{
-    font-family: "Yu Gothic","Hiragino Sans","Meiryo",sans-serif;
-    background:#f7f5f0;
-    color:#333;
+    font-family:"Yu Gothic","Hiragino Sans","Meiryo",sans-serif;
+    background:#f5f1e8;
+    color:#3d342d;
     text-align:center;
     margin:0;
     padding:60px 20px;
 }
 
+/* メインカード */
 .box{
-    max-width:600px;
+    max-width:620px;
     margin:auto;
-    background:white;
-    padding:40px;
-    border:1px solid #d8d2c6;
+    background:#fffdf9;
+    padding:45px;
+    border:2px solid #b89b5e;
     border-radius:10px;
-    box-shadow:0 3px 10px rgba(0,0,0,0.08);
+    box-shadow:0 10px 25px rgba(0,0,0,.12);
 }
 
+/* タイトル */
 h1{
-    margin-bottom:30px;
-    color:#5a4b3d;
+    color:#6d5843;
+    font-size:30px;
+    margin:10px 0;
+    letter-spacing:2px;
+    font-weight:normal;
 }
 
+/* 金色の装飾線 */
+.line{
+    width:90%;
+    margin:0 auto;
+    border-top:1px solid #b89b5e;
+    position:relative;
+}
+
+.line::after{
+    content:"✦";
+    position:absolute;
+    left:50%;
+    top:-12px;
+    transform:translateX(-50%);
+    background:#fffdf9;
+    color:#b89b5e;
+    padding:0 12px;
+    font-size:14px;
+}
+
+/* 説明文 */
 p{
-    line-height:1.8;
+    line-height:1.9;
+    font-size:16px;
 }
 
+/* 入力欄 */
 input{
-    width:280px;
-    padding:10px;
+    width:300px;
+    padding:12px;
+    margin-top:25px;
     font-size:18px;
     text-align:center;
-    margin-top:20px;
+    border:1px solid #b89b5e;
+    border-radius:8px;
+    outline:none;
 }
 
+input:focus{
+    border-color:#8b6d3c;
+    box-shadow:0 0 8px rgba(184,155,94,.3);
+}
+
+/* ボタン */
 button{
-    margin-top:20px;
-    padding:10px 30px;
+    margin-top:28px;
+    padding:13px 42px;
     font-size:16px;
+    font-weight:bold;
+    color:#fff;
+    background:linear-gradient(#8b7355,#6d5843);
+    border:1px solid #b89b5e;
+    border-radius:30px;
     cursor:pointer;
+    transition:.25s;
 }
 
+button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+    background:linear-gradient(#9b8262,#78614c);
+}
+
+button:active{
+    transform:translateY(1px);
+}
+
+/* ヒント */
 .hint{
     margin-top:35px;
-    color:#666;
-    font-size:15px;
-}
-
-#result{
-    margin-top:30px;
-    font-size:18px;
+    color:#6d5843;
+    font-size:14px;
+    letter-spacing:2px;
     line-height:1.8;
 }
+
+/* 正解表示 */
+#result{
+    margin-top:35px;
+    line-height:2;
+    font-size:16px;
+}
+
+/* フェードイン */
+.fade{
+    animation:fadeIn .8s ease;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.reward{
+    margin-top:20px;
+    border:2px solid #b89b5e;
+    border-radius:8px;
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+    max-width:100%;
+    max-height:600px;
+}
+
+.download{
+    display:inline-block;
+    margin-top:20px;
+    padding:12px 28px;
+    background:#6d5843;
+    color:white;
+    text-decoration:none;
+    border-radius:25px;
+    transition:.2s;
+}
+
+.download:hover{
+    background:#8b7355;
+}
+
 </style>
 
 </head>
+
 <body>
 
 <div class="box">
 
-<h1>🗝 キーワード回答 🗝</h1>
+<div class="line"></div>
+
+<h1>🗝　キーワード回答　🗝</h1>
+
+<div class="line" style="margin-bottom:30px;"></div>
 
 <p>
 主様、キーワードはすべてお集まりでしょうか。<br><br>
 「キーワードマップ」で見つけたキーワードを入力してください。
 </p>
 
-<input type="text" id="answer" placeholder="キーワード">
+<input
+type="text"
+id="answer"
+placeholder="キーワード">
 
 <br>
 
-<button onclick="check()">回答する</button>
+<button onclick="check()">
+🗝 解錠する
+</button>
 
 <div class="hint">
-ヒント：●★△〇▼□？■<br>
+ヒント：● ★ △ ○ ▼ □ ？ ■
 </div>
 
 <div id="result"></div>
 
 </div>
 
-<script>
-function check() {
+    <script>
 
-    // 前後・途中のスペースを削除
+function check(){
+
+    // 入力文字（空白削除）
     const ans = document.getElementById("answer").value
         .trim()
-        .replace(/\s/g, "");
+        .replace(/\s/g,"");
 
     const correctAnswers = [
         "アトランティスⅡ号",
@@ -102,25 +212,58 @@ function check() {
         "アトランティス２号"
     ];
 
-    if (correctAnswers.includes(ans)) {
+    const result = document.getElementById("result");
 
-      document.getElementById("result").innerHTML =
-    '🎉 <strong>お見事です、主様。</strong><br><br>' +
-    '謎を解き明かした主様へ、ささやかな記念品をご用意いたしました。<br>' +
-    'どうぞお受け取りください。<br><br>' +
+    // 正解！
+    if(correctAnswers.includes(ans)){
 
-    '<img src="present.png" alt="記念品" style="max-width:100%; max-height:600px; border:1px solid #ccc; border-radius:8px;"><br><br>' +
+        // 解錠中表示
+        result.innerHTML =
+        '<div class="fade">' +
+        '<p style="color:#6d5843;font-size:18px;">🗝 解錠中...</p>' +
+        '</div>';
 
-    '<a href="present.png" download style="font-size:18px;">📥  画像をダウンロード</a>';
+        // 0.8秒後に記念品表示
+        setTimeout(function(){
 
-    } else {
+            result.innerHTML =
 
-        document.getElementById("result").innerHTML =
-            'キーワードが違うようです。<br>もう一度、確認してみましょう。';
+            '<div class="fade">' +
+
+            '<p style="font-size:24px;color:#6d5843;margin-bottom:10px;"><strong>お見事です、主様。</strong></p>' +
+
+            '<p>' +
+            '謎を解き明かした主様へ、<br>' +
+            'ささやかな記念品をご用意いたしました。<br>' +
+            'どうぞお受け取りください。' +
+            '</p>' +
+
+            '<img class="reward" src="present.png" alt="記念品">' +
+
+            '<br>' +
+
+            '<a class="download" href="present.png" download>' +
+            '📥 記念品をダウンロード' +
+            '</a>' +
+
+            '</div>';
+
+        },800);
+
+    }else{
+
+        result.innerHTML =
+        '<div class="fade">' +
+        '<p style="color:#8b3d3d;">' +
+        'キーワードが違うようです。<br>' +
+        'もう一度、確認してみましょう。' +
+        '</p>' +
+        '</div>';
 
     }
 
 }
+
 </script>
 
 </body>
