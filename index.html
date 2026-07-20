@@ -135,6 +135,14 @@ button:active{
     }
 }
 
+.treasure{
+    width:130px;
+    margin:40px auto 0;
+    display:block;
+    image-rendering:pixelated;
+    transition:opacity .4s ease;
+}
+    
 .reward{
     margin-top:20px;
     border:2px solid #b89b5e;
@@ -229,7 +237,11 @@ placeholder="キーワード">
 </div>
 
 <div id="result"></div>
-
+<img
+    id="treasure"
+    class="treasure"
+    src="treasure.png"
+    alt="宝箱">
 </div>
 
     <script>
@@ -249,7 +261,7 @@ function check(){
     ];
 
     const result = document.getElementById("result");
-
+　　const treasure = document.getElementById("treasure");
     // 正解！
     if(correctAnswers.includes(ans)){
 
@@ -261,6 +273,13 @@ function check(){
 
         // 1秒後に記念品表示
         setTimeout(function(){
+        treasure.style.opacity = "0";
+
+        setTimeout(function(){
+
+        treasure.style.display = "none";
+
+        },400);
 
             result.innerHTML =
 
