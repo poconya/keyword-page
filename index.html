@@ -245,13 +245,18 @@ placeholder="キーワード">
 </div>
 
     <script>
-
+function normalizeAnswer(text) {
+    return text
+        .trim()
+        .replace(/\s/g, "")
+        .normalize("NFKC");
+}        
 function check(){
 
     // 入力文字（空白削除）
-    const ans = document.getElementById("answer").value
-        .trim()
-        .replace(/\s/g,"");
+   const ans = normalizeAnswer(
+    document.getElementById("answer").value
+);
 
     const correctAnswers = [
         "アトランティスⅡ号",
